@@ -31,8 +31,9 @@ export const signup = async (req, res)=>{
         });
 
         if(newUser){
-            generateToken(newUser._id, res)
-            await newUser.save();
+            const savedUser = await newUser.save();
+            generateToken(savedUser._id, res)
+            // await newUser.save();
 
             res.status(201).json({
                 _id: newUser._id,
@@ -49,4 +50,36 @@ export const signup = async (req, res)=>{
         console.log("Error in signup controller: ",error)
         res.status(500).json({message: "Internal Server error"})
     }
+}
+
+export const login = async (req, res)=>{
+    const {email, password} = req.body;
+
+    try {
+        const user = await User.findOne({email});
+
+        // never tell them that there email is correct in order to be safe from attacks
+        if(!email) return res.status(400).json({message: "Invalid Credentials"});
+
+        const isPasswordCorrect = await bcrypt.compare(password, user.password);
+        if(!isPasswordCorrect) return res.status(400).json({message: "Invalid Credentials"});
+
+        generateToken(user._id, res);
+
+        res.status(200).json({
+            _id: user._id,
+            fullName: user.fullName,
+            email: user.email,
+            profilePic: user.profilePic
+        });
+
+    } catch (error) {
+        console.error("Error in login Controller", error);
+        res.status(500).json({message: "Internal server Error"});
+    }
+}
+
+export const logout = (_, res) => {
+    res.cookie("jwt", "", {maxAge:0});
+    res.status(200).json({message: "Logged out Successfully!"})
 }

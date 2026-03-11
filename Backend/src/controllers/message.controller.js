@@ -1,6 +1,7 @@
 import Message from "../models/Message.js"; 
 import User from "../models/User.js";
-import cloudinary from "../lib/cloudinary.js"
+import cloudinary from "../lib/cloudinary.js";
+import { io, getReceiverSocketId } from "../server.js";
 
 export const getAllContacts = async (req, res) => {
     try {
@@ -54,7 +55,10 @@ export const sendMessage = async (req, res) => {
 
         let imageUrl;
         if( image ){
-            const uploadResponse = await cloudinary.uploader.upload(image);
+            const uploadResponse = await cloudinary.uploader.upload(image, {
+                resource_type: "auto",
+                folder: "chatifyy",
+            });
             imageUrl = uploadResponse.secure_url;
         }
 
@@ -66,13 +70,17 @@ export const sendMessage = async (req, res) => {
         });
         await newMessage.save();
 
-        // todo: send message in real-time if the other user is online 
+        // emit to receiver if online
+        const receiverSocketId = getReceiverSocketId(receiverId.toString());
+        if (receiverSocketId) {
+            io.to(receiverSocketId).emit("newMessage", newMessage);
+        }
 
         res.status(201).json(newMessage);
 
     } catch (error) {
-        console.log("Error in sendMessage: ", error.message);
-        res.status(500).json({message: "Internal Server Error"});
+        console.log("Error in sendMessage: ", error);
+        res.status(500).json({message: error?.message || "Internal Server Error"});
     }
 };
 

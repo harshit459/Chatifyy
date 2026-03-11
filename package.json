@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/harshit459/Chatifyy/issues"
   },
-  "homepage": "https://github.com/harshit459/Chatifyy#readme"
+  "homepage": "https://github.com/harshit459/Chatifyy#readme",
+  "dependencies": {
+    "react-hot": "^0.0.1",
+    "toast": "^0.5.4"
+  }
 }

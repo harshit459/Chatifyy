@@ -53,7 +53,13 @@ function ChatPage() {
                 <div className={`${selectedUser ? "hidden md:flex" : "flex"} flex-col w-full md:w-72 shrink-0`}>
                     <Sidebar />
                 </div>
-                {selectedUser ? <ChatContainer /> : <NoChatSelected />}
+                {selectedUser ? (
+                    <ChatContainer />
+                ) : (
+                    <div className="hidden md:flex flex-1 min-w-0">
+                        <NoChatSelected />
+                    </div>
+                )}
             </div>
         </div>
     );

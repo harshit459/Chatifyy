@@ -13,14 +13,14 @@ function ChatPage() {
         `https://ui-avatars.com/api/?name=${encodeURIComponent(authUser?.fullName || "U")}&background=4f46e5&color=fff&bold=true`;
 
     return (
-        <div className="app-bg h-screen flex flex-col relative overflow-hidden">
+        <div className="app-bg h-[100dvh] flex flex-col relative overflow-hidden">
             {/* Vivid background orbs */}
             <div className="fixed top-0 left-0 w-[700px] h-[700px] bg-violet-700 opacity-30 blur-[120px] pointer-events-none rounded-full -translate-x-1/3 -translate-y-1/3" />
             <div className="fixed bottom-0 right-0 w-[600px] h-[600px] bg-cyan-400 opacity-20 blur-[110px] pointer-events-none rounded-full translate-x-1/3 translate-y-1/3" />
             <div className="fixed top-1/2 left-1/2 w-[400px] h-[400px] bg-indigo-600 opacity-10 blur-[100px] pointer-events-none rounded-full -translate-x-1/2 -translate-y-1/2" />
 
             {/* Top Navbar */}
-            <header className="h-14 shrink-0 glass-bright border-b border-white/5 flex items-center px-4 gap-3 z-20 relative">
+            <header className="h-14 shrink-0 glass-bright border-b border-white/5 flex items-center px-3 sm:px-4 gap-3 z-20 relative">
                 {/* subtle top glow line */}
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/40 to-transparent" />
 
@@ -49,8 +49,8 @@ function ChatPage() {
             </header>
 
             {/* Main layout */}
-            <div className="flex flex-1 min-h-0 relative z-10">
-                <div className={`${selectedUser ? "hidden md:flex" : "flex"} flex-col`}>
+            <div className="flex flex-1 min-h-0 min-w-0 relative z-10 overflow-hidden">
+                <div className={`${selectedUser ? "hidden md:flex" : "flex"} flex-col w-full md:w-72 shrink-0`}>
                     <Sidebar />
                 </div>
                 {selectedUser ? <ChatContainer /> : <NoChatSelected />}

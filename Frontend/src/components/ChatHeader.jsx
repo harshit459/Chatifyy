@@ -12,7 +12,7 @@ function ChatHeader() {
         `https://ui-avatars.com/api/?name=${encodeURIComponent(selectedUser.fullName)}&background=4f46e5&color=fff&bold=true`;
 
     return (
-        <div className="px-4 py-3 border-b border-white/5 flex items-center gap-3 glass shrink-0 animate-fade-slide-up relative">
+        <div className="px-3 sm:px-4 py-3 border-b border-white/5 flex items-center gap-3 glass shrink-0 animate-fade-slide-up relative">
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/20 to-transparent" />
             <div className="relative">
                 <img

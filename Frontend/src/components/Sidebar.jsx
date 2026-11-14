@@ -17,7 +17,7 @@ function Sidebar() {
     );
 
     return (
-        <aside className="w-72 flex flex-col border-r border-white/5 glass h-full">
+        <aside className="w-full flex flex-col border-r border-white/5 glass h-full">
             {/* Header */}
             <div className="p-4 border-b border-white/5">
                 <div className="flex items-center gap-2 mb-4">
@@ -66,7 +66,7 @@ function Sidebar() {
                                 key={contact._id}
                                 onClick={() => setSelectedUser(contact)}
                                 style={{ animationDelay: `${i * 50}ms` }}
-                                className={`w-full flex items-center gap-3 px-4 py-3 transition-all duration-200 border-r-2 animate-slide-in-left ${
+                                className={`w-full flex items-center gap-3 px-3 sm:px-4 py-3 transition-all duration-200 border-r-2 animate-slide-in-left ${
                                     isSelected
                                         ? "bg-violet-500/10 border-violet-500 backdrop-blur"
                                         : "border-transparent hover:bg-white/5 hover:border-slate-600"

@@ -44,7 +44,7 @@ function MessageInput() {
     };
 
     return (
-        <div className="p-3 border-t border-white/5 glass shrink-0 relative">
+        <div className="p-2 sm:p-3 border-t border-white/5 glass shrink-0 relative">
             <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-500/20 to-transparent" />
             {/* Image preview */}
             {imagePreview && (
@@ -85,7 +85,7 @@ function MessageInput() {
                     placeholder="Type a message..."
                     value={text}
                     onChange={(e) => setText(e.target.value)}
-                    className="flex-1 bg-white/5 border border-white/8 text-slate-100 placeholder-slate-500 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/20 hover:border-white/15 transition-all duration-200"
+                    className="flex-1 min-w-0 bg-white/5 border border-white/8 text-slate-100 placeholder-slate-500 rounded-xl px-3 sm:px-4 py-2.5 text-sm focus:outline-none focus:border-violet-500/50 focus:ring-2 focus:ring-violet-500/20 hover:border-white/15 transition-all duration-200"
                 />
                 <button
                     type="submit"

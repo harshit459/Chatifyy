@@ -7,8 +7,8 @@ const SOCKET_URL =
 let socket = null;
 
 export const initSocket = (userId, onOnlineUsers) => {
-    if (socket?.connected) return;
-    socket = io(SOCKET_URL, { query: { userId } });
+    if (socket) return;
+    socket = io(SOCKET_URL, { query: { userId }, autoConnect: false });
 
     if (onOnlineUsers) {
         socket.on("getOnlineUsers", onOnlineUsers);
@@ -31,6 +31,8 @@ export const initSocket = (userId, onOnlineUsers) => {
             }
         });
     });
+
+    socket.connect();
 };
 
 export const getSocket = () => socket;

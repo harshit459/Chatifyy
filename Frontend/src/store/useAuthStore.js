@@ -3,7 +3,10 @@ import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 import { initSocket, closeSocket } from "../lib/socket";
 
-export const useAuthStore = create((set) => ({
+export const useAuthStore = create((set) => {
+    const setOnlineUsers = (users) => set({ onlineUsers: users });
+
+    return {
     authUser: null,
     isCheckingAuth: true,
     isSigningUp: false,
@@ -14,7 +17,7 @@ export const useAuthStore = create((set) => ({
     checkAuth: async () => {
         try {
             const res = await axiosInstance.get("/auth/check");
-            initSocket(res.data._id); // init socket BEFORE setting authUser
+            initSocket(res.data._id, setOnlineUsers);
             set({ authUser: res.data });
         } catch {
             set({ authUser: null });
@@ -27,7 +30,7 @@ export const useAuthStore = create((set) => ({
         set({ isSigningUp: true });
         try {
             const res = await axiosInstance.post("/auth/signup", data);
-            initSocket(res.data._id);
+            initSocket(res.data._id, setOnlineUsers);
             set({ authUser: res.data });
             toast.success("Account created successfully!");
         } catch (error) {
@@ -41,7 +44,7 @@ export const useAuthStore = create((set) => ({
         set({ isLoggingIn: true });
         try {
             const res = await axiosInstance.post("/auth/login", data);
-            initSocket(res.data._id);
+            initSocket(res.data._id, setOnlineUsers);
             set({ authUser: res.data });
             toast.success("Logged in successfully!");
         } catch (error) {
@@ -75,5 +78,6 @@ export const useAuthStore = create((set) => ({
         }
     },
 
-    setOnlineUsers: (users) => set({ onlineUsers: users }),
-}));
+    setOnlineUsers,
+    };
+});

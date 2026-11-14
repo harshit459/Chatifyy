@@ -6,23 +6,13 @@ import { useAuthStore } from "./store/useAuthStore";
 import { useEffect } from "react";
 import PageLoader from "./components/PageLoader";
 import { Toaster } from "react-hot-toast";
-import { getSocket } from "./lib/socket";
 
 function App() {
-  const { checkAuth, authUser, isCheckingAuth, setOnlineUsers } = useAuthStore();
+  const { checkAuth, authUser, isCheckingAuth } = useAuthStore();
 
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
-
-  // Attach online-users listener once authenticated
-  useEffect(() => {
-    if (!authUser) return;
-    const socket = getSocket();
-    if (!socket) return;
-    socket.on("getOnlineUsers", setOnlineUsers);
-    return () => socket.off("getOnlineUsers", setOnlineUsers);
-  }, [authUser, setOnlineUsers]);
 
   if (isCheckingAuth) return <PageLoader />;
 

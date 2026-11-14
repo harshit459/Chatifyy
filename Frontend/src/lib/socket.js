@@ -6,9 +6,13 @@ const SOCKET_URL =
 
 let socket = null;
 
-export const initSocket = (userId) => {
+export const initSocket = (userId, onOnlineUsers) => {
     if (socket?.connected) return;
     socket = io(SOCKET_URL, { query: { userId } });
+
+    if (onOnlineUsers) {
+        socket.on("getOnlineUsers", onOnlineUsers);
+    }
 
     socket.on("connect", () => {
         // Re-attach newMessage listener on every (re)connect

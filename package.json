@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
-    "start": "npm run start --prefix backend"
+    "build": "npm install --prefix Backend && npm install --prefix Frontend && npm run build --prefix Frontend",
+    "start": "npm run start --prefix Backend"
   },
   "repository": {
     "type": "git",
@@ -18,9 +18,5 @@
   "bugs": {
     "url": "https://github.com/harshit459/Chatifyy/issues"
   },
-  "homepage": "https://github.com/harshit459/Chatifyy#readme",
-  "dependencies": {
-    "react-hot": "^0.0.1",
-    "toast": "^0.5.4"
-  }
+  "homepage": "https://github.com/harshit459/Chatifyy#readme"
 }
